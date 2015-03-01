@@ -1,33 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      body {
-        font-family: Tahoma, Geneva, sans-serif;
-      }
-
-      div {
-        display: inline;
-      }
-    </style>
-    <script>
-      function updateStats(memuse) {
-        document.getElementById('rss').innerHTML = memuse.rss;
-        document.getElementById('heapTotal').innerHTML = memuse.heapTotal;
-        document.getElementById('heapUsed').innerHTML = memuse.heapUsed;
-      }
-
-      var host = window.document.location.host.replace(/:.*/, '');
-      var ws = new WebSocket('ws://' + host + ':8080');
-      ws.onmessage = function (event) {
-        updateStats(JSON.parse(event.data));
-      };
-    </script>
+  <script type="text/javascript" src='script.js'></script>
   </head>
   <body>
-    <strong>Server Stats</strong><br>
-    RSS: <div id='rss'></div><br>
-    Heap total: <div id='heapTotal'></div><br>
-    Heap used: <div id='heapUsed'></div><br>
+    <p>
+      <b>Server Status: </b><i id='status'>Off</i>
+    </p>
+    <p>
+      <b>Server Time: </b><i id = 'time'></i>
+    </p>
+    <p>
+      <b>Peers: </b><i id='peers'></i>
+    </p>
   </body>
 </html>
