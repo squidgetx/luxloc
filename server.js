@@ -2,10 +2,13 @@ var WebSocketServer = require('ws').Server
   , http = require('http')
   , express = require('express')
   , app = express();
+var port = process.env.PORT || 5000;
 
+app.use(express.static(__dirname + "/"));
 
 var server = http.createServer(app);
-server.listen(8080);
+server.listen(port);
+console.log('process listening on ' + port);
 
 var peers = 0;
 
@@ -23,7 +26,8 @@ wss.broadcast = function broadcast(data) {
 
 var id = setInterval(function() {
   shapes.forEach(function(s) {
-    //s.x += 1;
+    s.x += Math.random()* 2 - 1;
+    s.y += Math.random()* 2 - 1;
   });
   msg = {
     'text': 'Connected',
@@ -48,7 +52,7 @@ wss.on('connection', function(ws) {
   console.log('started client interval');
   ws.on('close', function() {
     console.log('stopping client interval');
-    clearInterval(id);
+    //clearInterval(id);
 
   });
 });
