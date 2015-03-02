@@ -13,7 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
   ctx.fillRect(0,0,1000,500);
 });
 
-var ws = new WebSocket('ws://localhost:8080');
+//var ws = new WebSocket('ws://localhost:8080');
+var ws = new WebSocket('ws://frozen-brook-1270.herokuapp.com:8080');
 
 navigator.geolocation.getCurrentPosition(success, error, options);
 
