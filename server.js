@@ -50,10 +50,12 @@ wss.on('connection', function(ws) {
   peers += 1;
   ws.on('message', function(message) {
     var data = JSON.parse(message);
-    shapes.push({
-      'x': data.lat - beinecke[0] + 500,
-      'y': data.lon - beinecke[1] + 250
-    })
+    var new_shape = {
+      'x': (data.lat - beinecke[0])*20000 + 500,
+      'y': (data.lon - beinecke[1])*20000 + 250
+    }
+    shapes.push(new_shape);
+    console.log(new_shape);
   });
   ws.on('close', function() {
     console.log('peer disconnected');
