@@ -10,14 +10,25 @@ server.listen(8080);
 
 var peers = 0;
 
+var shapes = [];
+
 var wss = new WebSocketServer({server: server});
+
 wss.on('connection', function(ws) {
   peers += 1;
+  shapes.push({
+    'x': 10*peers,
+    'y': 10*peers
+  });
   var id = setInterval(function() {
+    shapes.forEach(function(s) {
+      s.x += 1;
+    });
     msg = {
       'text': 'Connected',
       'time': new Date(),
-      'peers': peers
+      'peers': peers,
+      'shapes': shapes
     };
     ws.send(JSON.stringify(msg));
   }, 100);
