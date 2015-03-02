@@ -24,7 +24,7 @@ wss.broadcast = function broadcast(data) {
   });
 }
 
-var id = setInterval(function() {
+var animate = function() {
   shapes.forEach(function(s) {
     s.x += Math.random()* 2 - 1;
     s.y += Math.random()* 2 - 1;
@@ -38,9 +38,15 @@ var id = setInterval(function() {
   wss.broadcast(JSON.stringify(msg), function() {
     
   });
-}, 50);
+}
+
+var id;
 
 wss.on('connection', function(ws) {
+  if (peers == 0) {
+    id = setInterval(animate, 50);
+    console.log('starting server interval');
+  }
   peers += 1;
   ws.on('message', function(message) {
     var data = JSON.parse(message);
@@ -49,10 +55,13 @@ wss.on('connection', function(ws) {
       'y': data.lon - beinecke[1] + 250
     })
   });
-  console.log('started client interval');
   ws.on('close', function() {
-    console.log('stopping client interval');
-    //clearInterval(id);
+    console.log('peer disconnected');
+    peers --;
+    if (peers == 0) {
+      clearInterval(id);
+      console.log('stopping server interval');
+    }
 
   });
 });
