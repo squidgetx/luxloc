@@ -18,9 +18,9 @@ var beinecke = [41.311408, -72.927010];
 
 var wss = new WebSocketServer({server: server});
 
-wss.broadcast = function broadcast(data) {
+wss.broadcast = function broadcast(data, error) {
   wss.clients.forEach(function each(client) {
-    client.send(data);
+    client.send(data, error);
   });
 }
 
