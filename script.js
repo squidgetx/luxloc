@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 //var ws = new WebSocket('ws://localhost:8080');
-var ws = new WebSocket('ws://frozen-brook-1270.herokuapp.com:8080');
+var host = location.origin.replace(/^http/, 'ws')
+var ws = new WebSocket(host);
 
 navigator.geolocation.getCurrentPosition(success, error, options);
 

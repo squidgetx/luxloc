@@ -3,7 +3,6 @@ var WebSocketServer = require('ws').Server
   , express = require('express')
   , app = express();
 
-app.use(express.static(__dirname + '/public'));
 
 var server = http.createServer(app);
 server.listen(8080);
