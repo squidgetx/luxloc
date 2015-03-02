@@ -26,8 +26,8 @@ wss.broadcast = function broadcast(data, error) {
 
 var animate = function() {
   shapes.forEach(function(s) {
-    s.x += Math.random()* 2 - 1;
-    s.y += Math.random()* 2 - 1;
+    s.x += Math.random() - .5;
+    s.y += Math.random() - .5;
   });
   msg = {
     'text': 'Connected',
@@ -51,8 +51,8 @@ wss.on('connection', function(ws) {
   ws.on('message', function(message) {
     var data = JSON.parse(message);
     var new_shape = {
-      'x': (data.lat - beinecke[0])*30000 + 500,
-      'y': (data.lon - beinecke[1])*30000 + 250
+      'x': (data.lon - beinecke[1])*30000 + 500,
+      'y': (beinecke[0] - data.lat)*30000 + 250
     }
     shapes.push(new_shape);
     console.log(new_shape);
